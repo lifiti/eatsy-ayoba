@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            img {
+              display: block;
+              margin-left: auto;
+              margin-right: auto;
+            }
+        </style>
+    </head>
+    <script src="../lib/microapp.js"></script>
+    <body style="background-color:#1565c0;">
+
+        <center><font color="#ffc107">Test Media</font></center>
+        <br/>
+
+        <img src="logo.png" style="width:72px;"/>
+        <br/>
+
+        <div style="text-align:center;">
+            <input type="button" value="Send jpg image" onClick="sendJpgImage()" />
+        </div>
+        <br/>
+
+        <div style="text-align:center;">
+            <input type="button" value="Send gif image" onClick="sendGifImage()" />
+        </div>
+        <br/>
+
+        <div style="text-align:center;">
+            <input type="button" value="Send video" onClick="sendVideo()" />
+        </div>
+        <br/>
+
+        <div style="text-align:center;">
+            <input type="button" value="Send ogg audio" onClick="sendOggAudio()" />
+        </div>
+        <br/>
+
+        <div style="text-align:center;">
+            <input type="button" value="Send pdf" onClick="sendPdf()" />
+        </div>
+        <br/>
+
+        <div style="text-align:center;">
+            <input type="button" value="Send msword" onClick="sendMsword()" />
+        </div>
+        <br/>
+
+        <div style="text-align:center;">
+            <input type="button" value="Send contact" onClick="sendContact()" />
+        </div>
+        <br/>
+
+        <div style="text-align:center;">
+            <input type="button" value="Send location" onClick="sendLocation()" />
+        </div>
+        <br/>
+
+        <p style="overflow: hidden; text-overflow: ellipsis;" id="response">Response: </p>
+
+        <script type="text/javascript">
+
+            function sendJpgImage() {
+                Ayoba.sendMedia('https://i.ytimg.com/vi/d5PP4vIX7P8/maxresdefault.jpg', 'image/jpg');
+            }
+
+            function sendGifImage() {
+                Ayoba.sendMedia('https://media.giphy.com/media/62PP2yEIAZF6g/source.gif', 'image/gif');
+            }
+
+            function sendVideo() {
+                Ayoba.sendMedia('http://techslides.com/demos/sample-videos/small.mp4', 'video/mp4');
+            }
+
+            function sendOggAudio() {
+                Ayoba.sendMedia('https://file-examples.com/wp-content/uploads/2017/11/file_example_OOG_1MG.ogg', 'audio/ogg');
+            }
+
+            function sendPdf() {
+                Ayoba.sendMedia('http://www.africau.edu/images/default/sample.pdf', 'application/pdf');
+            }
+            function sendMsword() {
+                Ayoba.sendMedia('https://file-examples.com/wp-content/uploads/2017/02/file-sample_500kB.doc', 'application/msword');
+            }
+
+            function sendContact() {
+                Ayoba.sendMedia('https://www.phpclasses.org/browse/download/1/file/5543/name/sample.vcf', 'text/vcard');
+            }
+
+            function sendLocation() {
+                Ayoba.sendLocation('41.4203723', '2.1828769');
+            }
+
+            <!-- Implement this method to retrieve Ayoba.sendLocation(lat, lon) response -->
+            function onLocationSentResponse(responseCode) {
+                var responseCode = responseCode
+                document.getElementById("response").innerHTML = "Response: ".concat(responseCode);
+            }
+
+            <!-- Implement this method to retrieve Ayoba.sendMedia(url, mediaType) response -->
+            function onMediaSentResponse(responseCode, encodedUrl) {
+                var responseCode = responseCode
+                var encodedUrl = encodedUrl
+                document.getElementById("response").innerHTML = "Response: ".concat(responseCode).concat(" / ").concat(encodedUrl);
+            }
+
+        </script>
+    </body>
+</html>

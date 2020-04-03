@@ -16,7 +16,7 @@
 <script>
     let user = axios.get('https://efb30d56.ngrok.io/users/1')
     .then(response => response)
-    .then(data => alert(JSON.stringify(data.data)))
+    .then(data => document.getElementById("userText").setAttribute("value", JSON.stringify(data.data)))
     .catch(error => console.log(error));
 </script>
 <script>
@@ -147,6 +147,11 @@
     <center>
         <font color="#ffc107">Example Micro App - Mid Screen</font>
     </center>
+    <br />
+    <div style="text-align:center;">
+        User api info:
+        <input type="text" id="userText" />
+    </div>
     <br />
     <div style="text-align:center;">
         <input type="text" id="inputText">

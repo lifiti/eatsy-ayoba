@@ -10,22 +10,19 @@
 </head>
 <body>
   <div class="ui container">
-    <!-- Navigation Menu -->
-    <div class="ui four item inverted orange menu">
-      <div class="header item">
-        <i class="money bill alternate outline icon"></i>
-        Single Page App
-      </div>
+    <div class="ui loading basic segment">
+    <div class="ui secondary pointing menu">
       <a class="item" href="/">
-        Currency Rates
+        Home
       </a>
-      <a class="item" href="/exchange">
-        Exchange Rates
+      <a class="item" href="/restaurants">
+        Restaurants
       </a>
-      <a class="item" href="/historical">
-        Historical Rates
+      <a class="item">
+        Order history
       </a>
     </div>
+
     <!-- Error Template -->
     <script id="error-template" type="text/x-handlebars-template">
       <div class="ui {{color}} inverted segment" style="height:250px;">
@@ -41,44 +38,36 @@
     </script>
 
     <!-- Currency Rates Template -->
-    <script id="rates-template" type="text/x-handlebars-template">
-      <h1 class="ui header">Currency Rates</h1>
-      <hr>
-      <div class="ui loading basic segment">
-        <div class="ui horizontal list">
-          <div class="item">
-            <i class="calendar alternate outline icon"></i>
-            <div class="content">
-              <div class="ui sub header">Date</div>
-              <span>{{date}}</span>
+    <script id="restaurants-template" type="text/x-handlebars-template">
+      <h5 class="ui blue header">Explore our restaurants and get your favourite meal delivered to you</h5>
+        <div class="ui cards">
+          {{#each this}}
+            <div class="card">
+              <div class="content">
+                <img class="right floated mini ui image" src="https://banner2.cleanpng.com/20181125/ii/kisspng-logo-mcdonalds-brand-corporate-identity-font-5bfa497b8a79b6.8247126815431294675672.jpg">
+                <div class="header">
+                  {{name}}
+                </div>
+                <div class="meta">
+                  {{state}}
+                </div>
+                <div class="description">
+                  {{address}}
+                </div>
+              </div>
+              <div class="extra content">
+                <div class="ui two buttons">
+                  <div class="ui basic green button"><a href="/restaurants/{{id}}">View</a></div>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="item">
-            <i class="money bill alternate outline icon"></i>
-            <div class="content">
-              <div class="ui sub header">Base</div>
-              <span>{{base}}</span>
-            </div>
-          </div>
+          {{/each}}
         </div>
+    </script>
 
-        <table class="ui celled striped selectable inverted table">
-          <thead>
-            <tr>
-              <th>Code</th>
-              <th>Rate</th>
-            </tr>
-          </thead>
-          <tbody>
-            {{#each rates}}
-            <tr>
-              <td>{{@key}}</td>
-              <td>{{this}}</td>
-            </tr>
-            {{/each}}
-          </tbody>
-        </table>
-      </div>
+    <!-- Currency Rates Template -->
+    <script id="restaurant-template" type="text/x-handlebars-template">
+      <h1 class="ui header">{{name}}</h1>
     </script>
 
     <script id="exchange-template" type="text/x-handlebars-template">
@@ -144,6 +133,7 @@
       </div>
     </script>
 
+
     <!-- Page content -->
     <div id="app"></div>
 
@@ -155,6 +145,7 @@
     <script src="scripts/handlebars/dist/handlebars.min.js"></script>
     <script src="scripts/vanilla-router/dist/vanilla-router.min.js"></script>
     <script src="js/app.js"></script>
+    </div>
   </div>
 </body>
 </html>

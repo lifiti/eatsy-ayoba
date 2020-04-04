@@ -7,6 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="scripts/semantic-ui-css/semantic.min.css">
     <link rel="stylesheet" href="scripts/semantic-ui-calendar/dist/calendar.min.css">
+    <script>
+      var msisdn = Ayoba.getMsisdn();
+      document.getElementById("welcome").value = 'Welcome, ' + msisdn
+    </script>
 </head>
 <body>
   <div class="ui container">
@@ -20,6 +24,8 @@
       </a>
       <a class="item">
         Order history
+      </a>
+      <a class="blue item" id="welcome">
       </a>
     </div>
 

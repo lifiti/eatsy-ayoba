@@ -72,15 +72,15 @@ window.addEventListener('load', () => {
   });
 
   // Display one restaurant with menu
-  router.add('/restaurants/:restaurantId', async () => {
-    alert("atleast");
+  router.add('/restaurant', async () => {
     // Display loader first
     let html = restaurantTemplate();
+    let id = window.location.search.split('=')[1];
 
     el.html(html);
     try {
       // Load Currency Rates
-      const response = await api.get(`/restaurants/${req.params.restaurantId}`);
+      const response = await api.get(`/restaurants/${id}`);
       var restaurant = response.data;
       // Display Rates Table
       html = restaurantTemplate(restaurant);
@@ -195,7 +195,7 @@ window.addEventListener('load', () => {
   //   $('.submit').click(historicalRatesHandler);
   // });
 
-  router.navigateTo(window.location.pathname);
+  router.navigateTo(window.location.pathname + window.location.search);
 
   // Highlight Active Menu on Load
   const link = $(`a[href$='${window.location.pathname}']`);
@@ -212,7 +212,7 @@ window.addEventListener('load', () => {
 
     // Navigate to clicked url
     const href = target.attr('href');
-    const path = href.substr(href.lastIndexOf('/'));
-    router.navigateTo(path);
+    // const path = href.substr(href.lastIndexOf('/'));
+    router.navigateTo(href);
   });
 });

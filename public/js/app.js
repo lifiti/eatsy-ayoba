@@ -195,7 +195,7 @@ window.addEventListener('load', () => {
   //   $('.submit').click(historicalRatesHandler);
   // });
 
-  router.navigateTo(window.location.pathname + window.location.search);
+  router.navigateTo(window.location.pathname);
 
   // Highlight Active Menu on Load
   const link = $(`a[href$='${window.location.pathname}']`);

@@ -8,9 +8,12 @@ window.addEventListener('load', () => {
   const exchangeTemplate = Handlebars.compile($('#exchange-template').html());
   const historicalTemplate = Handlebars.compile($('#historical-template').html());
 
+  if($("#restaurantId").val() == 'undefined'){
+    alert("Not undefined");
+  }
   // Instantiate api handler
   const api = axios.create({
-    baseURL: 'https://opentable.herokuapp.com/api',
+    baseURL: 'https://efb30d56.ngrok.io/api',
     timeout: 5000,
   });
 
@@ -42,8 +45,8 @@ window.addEventListener('load', () => {
     el.html(html);
     try {
       // Load Currency Rates
-      const response = await api.get('/restaurants?state=IL');
-      var restaurants = response.data['restaurants'];
+      const response = await api.get('/stores');
+      var restaurants = response.data;
       // Display Rates Table
       html = restaurantsTemplate(restaurants);
       el.html(html);
@@ -51,6 +54,34 @@ window.addEventListener('load', () => {
     } catch (error) {
       showError(error);
     }
+
+    // Someone clicks on view company button
+    $(".view-button").click(function () {
+      let html = restaurantTemplate();
+      let id = $(this).attr('id');
+
+      try {
+        api.get(`/stores/${id}`).then(function( restaurant ) {
+          restaurant = restaurant.data;
+          api.get(`/stores/${id}/menus`).then(function( menu ) {
+            menu = menu.data[0];
+            api.get(`/menus/${menu.id}/items`).then(function( items ) {
+            items = items.data;
+            html = restaurantTemplate({restaurant, menu, items});
+            el.html(html);
+            $('.loading').removeClass('loading');
+           });
+          });
+        });
+      } catch (error) {
+        showError(error);
+      }
+    });
+
+    // Someone clicks on order button
+    $(".order-button").click(function () {
+      alert($(this).attr('id'));
+    });
   });
 
   // Display restaurants
@@ -60,8 +91,8 @@ window.addEventListener('load', () => {
     el.html(html);
     try {
       // Load Currency Rates
-      const response = await api.get('/restaurants?state=IL');
-      var restaurants = response.data['restaurants'];
+      const response = await api.get('/stores');
+      var restaurants = response.data;
       // Display Rates Table
       html = restaurantsTemplate(restaurants);
       el.html(html);
@@ -69,6 +100,34 @@ window.addEventListener('load', () => {
     } catch (error) {
       showError(error);
     }
+
+    // Someone clicks on view company button
+    $(".view-button").click(function () {
+      let html = restaurantTemplate();
+      let id = $(this).attr('id');
+
+      try {
+        api.get(`/stores/${id}`).then(function( restaurant ) {
+          restaurant = restaurant.data;
+          api.get(`/stores/${id}/menus`).then(function( menu ) {
+            menu = menu.data[0];
+            api.get(`/menus/${menu.id}/items`).then(function( items ) {
+            items = items.data;
+            html = restaurantTemplate({restaurant, menu, items});
+            el.html(html);
+            $('.loading').removeClass('loading');
+           });
+          });
+        });
+      } catch (error) {
+        showError(error);
+      }
+    });
+
+    // Someone clicks on order button
+    $(".order-button").click(function () {
+      alert($(this).attr('id'));
+    });
   });
 
   // Display one restaurant with menu

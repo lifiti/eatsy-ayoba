@@ -22,9 +22,7 @@
         Order history
       </a>
     </div>
-
-    <div id="welcome-text">
-    </div>
+    <input type="hidden" id="restaurantId" name="restaurantId" value="">
 
     <!-- Error Template -->
     <script id="error-template" type="text/x-handlebars-template">
@@ -47,20 +45,20 @@
           {{#each this}}
             <div class="card">
               <div class="content">
-                <img class="right floated mini ui image" src="https://banner2.cleanpng.com/20181125/ii/kisspng-logo-mcdonalds-brand-corporate-identity-font-5bfa497b8a79b6.8247126815431294675672.jpg">
+                <img class="right floated mini ui image" src={{raw_hero_url}}>
                 <div class="header">
                   {{name}}
                 </div>
                 <div class="meta">
-                  {{state}}
+                  {{status}}
                 </div>
                 <div class="description">
-                  {{address}}
+                  {{location.address_2}}
                 </div>
               </div>
               <div class="extra content">
                 <div class="ui two buttons">
-                  <a class="ui attached blue button order-button"  href="/restaurant">View</a>
+                  <div class="ui attached blue button view-button"  id="{{id}}">View</div>
                 </div>
               </div>
             </div>
@@ -71,26 +69,28 @@
     <!-- Currency Rates Template -->
     <script id="restaurant-template" type="text/x-handlebars-template">
       <h5 class="ui header">
-        <img src="https://banner2.cleanpng.com/20181125/ii/kisspng-logo-mcdonalds-brand-corporate-identity-font-5bfa497b8a79b6.8247126815431294675672.jpg" class="ui circular image">
-        {{name}}
+        <img src={{restaurant.raw_hero_url}} class="ui circular image">
+        {{restaurant.name}}
       </h5>
       <h4 class="ui horizontal divider header">
         <i class="tag icon"></i>
-        Menu
+        {{menu.title}}
       </h4>
       <div class="ui special cards">
-        <div class="blue card">
-          <div class="image">
-            <img src="https://www.eatout.co.za/wp-content/uploads/2017/05/FB_IMG_1526832804754-360x450.jpg" style="height: 200px;">
+        {{#each items}}
+          <div class="blue card">
+            <div class="image">
+              <img src={{image_url}} style="height: 200px;">
+            </div>
+            <div class="extra">
+              <div class="ui label">{{title}}</div>
+              <div class="ui label"><i class="money bill alternate outline icon"></i>R{{price}}</div>
+            </div>
+            <div class="extra content">
+              <div class="ui attached blue button order-button" id="{{id}}">Order</div>
+            </div>
           </div>
-          <div class="extra">
-            <div class="ui label">Kota King</div>
-            <div class="ui label"><i class="money bill alternate outline icon"></i>R30.00</div>
-          </div>
-          <div class="extra content">
-            <a class="ui attached blue button order-button" href='/order?item_id={{id}}'>Order</a></div>
-          </div>
-        </div>
+        {{/each}}
       </div>
     </script>
 
@@ -156,8 +156,6 @@
         <div id="historical-table"></div>
       </div>
     </script>
-
-
     <!-- Page content -->
     <div id="app"></div>
 
@@ -172,7 +170,8 @@
     <script>
       // var msisdn = Ayoba.getMsisdn();
 
-      // el = document.querySelector('#welcome-text');
+      // el = document.querySelector('.order-button');
+      // el.val();
 
       // el.addClass("ui positive message" );
     
@@ -181,6 +180,7 @@
       //                   You are ordering as: ` + msisdn + 
       //                 `</div>`
     </script>
+
     </div>
   </div>
 </body>

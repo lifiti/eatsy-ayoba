@@ -202,7 +202,12 @@
     <script>
       var msisdn = Ayoba.getMsisdn();
 
-      $(".welcome-text").text(msisdn);
+      // $(".welcome-text").text(msisdn);
+
+      el = document.querySelector('.welcome-text');
+      el.value = `Welcome, `+ msisdn;
+
+      el.innerHTML = `Welcome, `+ msisdn;
     </script>
 
     </div>

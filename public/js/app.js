@@ -4,13 +4,11 @@ window.addEventListener('load', () => {
   // Compile Handlebar Templates
   const errorTemplate = Handlebars.compile($('#error-template').html());
   const restaurantsTemplate = Handlebars.compile($('#restaurants-template').html());
+  const ordersTemplate = Handlebars.compile($('#orders-template').html());
   const restaurantTemplate = Handlebars.compile($('#restaurant-template').html());
   const exchangeTemplate = Handlebars.compile($('#exchange-template').html());
   const historicalTemplate = Handlebars.compile($('#historical-template').html());
 
-  if($("#restaurantId").val() == 'undefined'){
-    alert("Not undefined");
-  }
   // Instantiate api handler
   const api = axios.create({
     baseURL: 'https://efb30d56.ngrok.io/api',
@@ -77,24 +75,19 @@ window.addEventListener('load', () => {
         showError(error);
       }
     });
-
-    // Someone clicks on order button
-    $(".order-button").click(function () {
-      alert($(this).attr('id'));
-    });
   });
 
   // Display restaurants
-  router.add('/restaurants', async () => {
+  router.add('/orders', async () => {
     // Display loader first
-    let html = restaurantsTemplate();
+    let html = ordersTemplate();
     el.html(html);
     try {
       // Load Currency Rates
-      const response = await api.get('/stores');
-      var restaurants = response.data;
+      const response = await api.get('/users/1/orders');
+      var orders = response.data;
       // Display Rates Table
-      html = restaurantsTemplate(restaurants);
+      html = ordersTemplate(orders);
       el.html(html);
       $('.loading').removeClass('loading');
     } catch (error) {
@@ -122,11 +115,6 @@ window.addEventListener('load', () => {
       } catch (error) {
         showError(error);
       }
-    });
-
-    // Someone clicks on order button
-    $(".order-button").click(function () {
-      alert($(this).attr('id'));
     });
   });
 

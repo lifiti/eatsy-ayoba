@@ -15,11 +15,11 @@
       <a class="item" href="/">
         Home
       </a>
-      <a class="item" href="/restaurants">
-        Restaurants
-      </a>
       <a class="item" href="/orders">
         Order history
+      </a>
+
+      <a class="item welcome-text" href="#">
       </a>
     </div>
     <input type="hidden" id="restaurantId" name="restaurantId" value="">
@@ -59,6 +59,38 @@
               <div class="extra content">
                 <div class="ui two buttons">
                   <div class="ui attached blue button view-button"  id="{{id}}">View</div>
+                </div>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+    </script>
+
+    <!-- Currency Rates Template -->
+    <script id="orders-template" type="text/x-handlebars-template">
+      <h4 class="ui horizontal divider header">
+        Your past orders
+      </h4>
+      <div class="ui cards">
+          {{#each this}}
+            <div class="card">
+              <div class="content">
+                <div class="meta right floated">
+                  {{storeId}}
+                </div>
+                <div class="header">
+                  {{friendly_id}}
+                </div>
+                <div class="meta">
+                  {{estimated_ready_for_pickup_at}}
+                </div>
+                <div class="description">
+                  R{{order_total}}
+                </div>
+              </div>
+              <div class="extra content">
+                <div class="ui two buttons">
+                  <div class="ui attached blue button view-button"  id="{{id}}">View details</div>
                 </div>
               </div>
             </div>
@@ -168,17 +200,9 @@
     <script src="scripts/vanilla-router/dist/vanilla-router.min.js"></script>
     <script src="js/app.js"></script>
     <script>
-      // var msisdn = Ayoba.getMsisdn();
+      var msisdn = Ayoba.getMsisdn();
 
-      // el = document.querySelector('.order-button');
-      // el.val();
-
-      // el.addClass("ui positive message" );
-    
-      // el.innerHTML = `<i class="close icon"></i>
-      //                 <div class="header" >
-      //                   You are ordering as: ` + msisdn + 
-      //                 `</div>`
+      $(".welcome-text").text(msisdn);
     </script>
 
     </div>
